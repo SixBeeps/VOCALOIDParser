@@ -13,14 +13,14 @@ namespace SixBeeps.VOCALOIDParser
         public static Dictionary<string, string> SingerNames { get; private set; } = new Dictionary<string, string>();
 
         private string? projectDirectory;
-        public List<IVocaloidTrack> Tracks;
+        public List<VocaloidTrack> Tracks;
 
         /// <summary>
         /// Constructor for creating a new, blank Vocaloid project.
         /// </summary>
         public VocaloidProject()
         {
-            Tracks = new List<IVocaloidTrack>();
+            Tracks = new List<VocaloidTrack>();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SixBeeps.VOCALOIDParser
             }
 
             // Create tracks
-            project.Tracks = new List<IVocaloidTrack>();
+            project.Tracks = new List<VocaloidTrack>();
             foreach (JsonNode track in docNode["tracks"] as JsonArray)
             {
                 int trackType = (track["type"] as JsonValue).GetValue<int>();

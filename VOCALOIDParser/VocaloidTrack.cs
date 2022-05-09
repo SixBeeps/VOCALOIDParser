@@ -1,4 +1,5 @@
-﻿#pragma warning disable CS8602 // Dereference of a possibly null reference.
+﻿#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 
 using System.Text.Json.Nodes;
@@ -6,28 +7,26 @@ using VOCALOIDParser;
 
 namespace SixBeeps.VOCALOIDParser
 {
-    public interface IVocaloidTrack
-    {
-        public abstract string Name { get; }
-        public abstract SortedList<int, IVocaloidEvent> Events { get; }
-        public abstract AutomationTrack VolumeTrack { get; }
-        public abstract AutomationTrack PanningTrack { get; }
-    }
-
-    public class VocalTrack : IVocaloidTrack
+    public class VocaloidTrack
     {
         public string Name { get; }
         public SortedList<int, IVocaloidEvent> Events { get; }
         public AutomationTrack VolumeTrack { get; }
         public AutomationTrack PanningTrack { get; }
 
-        internal VocalTrack(JsonNode json)
+        public VocaloidTrack(JsonNode json)
         {
             Name = json["name"].ToString();
             Events = new SortedList<int, IVocaloidEvent>();
             VolumeTrack = new AutomationTrack(json["volume"]);
             PanningTrack = new AutomationTrack(json["panpot"]);
+        }
+    }
 
+    public class VocalTrack : VocaloidTrack
+    {
+        public VocalTrack(JsonNode json) : base(json)
+        {
             // Ignore empty tracks
             if (json["parts"] == null) return;
 
@@ -44,20 +43,10 @@ namespace SixBeeps.VOCALOIDParser
         }
     }
 
-    public class AudioTrack : IVocaloidTrack
+    public class AudioTrack : VocaloidTrack
     {
-        public string Name { get; }
-        public SortedList<int, IVocaloidEvent> Events { get; }
-        public AutomationTrack VolumeTrack { get; }
-        public AutomationTrack PanningTrack { get; }
-
-        public AudioTrack(JsonNode json)
+        public AudioTrack(JsonNode json) : base(json)
         {
-            Name = json["name"].ToString();
-            Events = new SortedList<int, IVocaloidEvent>();
-            VolumeTrack = new AutomationTrack(json["volume"]);
-            PanningTrack = new AutomationTrack(json["panpot"]);
-
             // Ignore empty tracks
             if (json["parts"] == null) return;
 
@@ -77,5 +66,6 @@ namespace SixBeeps.VOCALOIDParser
     }
 }
 
+#pragma warning restore CS8604 // Possible null reference argument.
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
