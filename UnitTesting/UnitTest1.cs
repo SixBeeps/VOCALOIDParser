@@ -27,7 +27,7 @@ namespace UnitTesting
         public void LyricBuildingTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Vocal.vpr");
-            var lyrics = (proj.Tracks.First().Events.Values.First() as VocalPart).GetLyrics();
+            var lyrics = ((VocalPart)proj.Tracks.First().Events.Values.First()).GetLyrics();
             var lyrCombined = string.Join(" ", lyrics.Values);
             Assert.AreEqual(lyrCombined, "Ooh", "The built lyrics were: " + lyrCombined);
         }
@@ -36,7 +36,7 @@ namespace UnitTesting
         public void PhonemeTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Demo.vpr");
-            var glyphs = (proj.Tracks.First().Events.Values.First() as VocalPart).Glyphs;
+            var glyphs = ((VocalPart)proj.Tracks.First().Events.Values.First()).Glyphs;
             var ph = (from g in glyphs where g.Value.Glyph == "the" select g).First().Value.Phonemes;
             Assert.AreEqual(ph, "D i:", "The written phoneme was: " + ph);
         }

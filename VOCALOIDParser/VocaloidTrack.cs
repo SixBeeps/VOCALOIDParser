@@ -34,12 +34,12 @@ namespace SixBeeps.VOCALOIDParser
 
             int startTime;
 
-            foreach (JsonNode part in json["parts"] as JsonArray)
+            foreach (JsonNode part in json["parts"].AsArray())
             {
                 // Ignore empty parts
                 if (part["notes"] == null) continue;
 
-                startTime = (part["pos"] as JsonValue).GetValue<int>();
+                startTime = part["pos"].GetValue<int>();
                 Events.Add(startTime, new VocalPart(part));
             }
         }
@@ -56,12 +56,12 @@ namespace SixBeeps.VOCALOIDParser
             int startTime;
             float rStart, rEnd;
 
-            foreach (JsonNode clip in json["parts"] as JsonArray)
+            foreach (JsonNode clip in json["parts"].AsArray())
             {
                 wav = clip["wav"]["name"].ToString();
-                startTime = (clip["pos"] as JsonValue).GetValue<int>();
-                rStart = (clip["region"]["begin"] as JsonValue).GetValue<float>();
-                rEnd = (clip["region"]["end"] as JsonValue).GetValue<float>();
+                startTime = clip["pos"].GetValue<int>();
+                rStart = clip["region"]["begin"].GetValue<float>();
+                rEnd = clip["region"]["end"].GetValue<float>();
                 Events.Add(startTime, new AudioEvent(wav, startTime, rStart, rEnd));
             }
         }

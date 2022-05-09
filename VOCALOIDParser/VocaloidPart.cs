@@ -21,17 +21,17 @@ namespace SixBeeps.VOCALOIDParser
             SingerID = json["voice"]["compID"].ToString();
             Glyphs = new SortedList<int, VocalNote>();
 
-            StartTime = (json["pos"] as JsonValue).GetValue<int>();
-            Duration = (json["duration"] as JsonValue).GetValue<int>();
+            StartTime = json["pos"].GetValue<int>();
+            Duration = json["duration"].GetValue<int>();
 
             // Extract glyphs
             int startTime, duration, midi;
             string glyph, phoneme;
-            foreach (JsonNode note in json["notes"] as JsonArray)
+            foreach (JsonNode note in json["notes"].AsArray())
             {
-                startTime = (note["pos"] as JsonValue).GetValue<int>();
-                duration = (note["duration"] as JsonValue).GetValue<int>();
-                midi = (note["number"] as JsonValue).GetValue<int>();
+                startTime = note["pos"].GetValue<int>();
+                duration = note["duration"].GetValue<int>();
+                midi = note["number"].GetValue<int>();
                 glyph = note["lyric"].ToString();
                 phoneme = note["phoneme"].ToString();
                 Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration));

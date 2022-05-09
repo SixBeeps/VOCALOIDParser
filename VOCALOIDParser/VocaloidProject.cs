@@ -49,16 +49,16 @@ namespace SixBeeps.VOCALOIDParser
             JsonNode docNode = JsonNode.Parse(File.ReadAllText(jsonFile));
 
             // Obtain list of singers and their compIDs
-            foreach (JsonNode info in docNode["voices"] as JsonArray)
+            foreach (JsonNode info in docNode["voices"].AsArray())
             {
                 SingerNames.TryAdd(info["compID"].ToString(), info["name"].ToString());
             }
 
             // Create tracks
             project.Tracks = new List<VocaloidTrack>();
-            foreach (JsonNode track in docNode["tracks"] as JsonArray)
+            foreach (JsonNode track in docNode["tracks"].AsArray())
             {
-                int trackType = (track["type"] as JsonValue).GetValue<int>();
+                int trackType = track["type"].GetValue<int>();
                 switch(trackType)
                 {
                     case 0:

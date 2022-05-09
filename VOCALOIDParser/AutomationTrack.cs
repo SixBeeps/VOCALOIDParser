@@ -16,10 +16,10 @@ namespace VOCALOIDParser
             Folded = json["isFolded"].GetValue<bool>();
 
             float pos, val;
-            foreach (JsonNode evt in json["events"] as JsonArray)
+            foreach (JsonNode evt in json["events"].AsArray())
             {
-                pos = (evt["pos"] as JsonValue).GetValue<float>();
-                val = (evt["value"] as JsonValue).GetValue<float>();
+                pos = evt["pos"].GetValue<float>();
+                val = evt["value"].GetValue<float>();
                 Points.Add(new AutomationPoint(pos, val));
             }
         }
