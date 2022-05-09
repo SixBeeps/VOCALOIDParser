@@ -10,6 +10,7 @@ namespace SixBeeps.VOCALOIDParser
     public class VocaloidTrack
     {
         public string Name { get; }
+        public bool Folded { get; set; }
         public SortedList<int, IVocaloidEvent> Events { get; }
         public AutomationTrack VolumeTrack { get; }
         public AutomationTrack PanningTrack { get; }
@@ -17,6 +18,7 @@ namespace SixBeeps.VOCALOIDParser
         public VocaloidTrack(JsonNode json)
         {
             Name = json["name"].ToString();
+            Folded = json["isFolded"].GetValue<bool>();
             Events = new SortedList<int, IVocaloidEvent>();
             VolumeTrack = new AutomationTrack(json["volume"]);
             PanningTrack = new AutomationTrack(json["panpot"]);

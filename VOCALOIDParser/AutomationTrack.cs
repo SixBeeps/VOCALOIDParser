@@ -8,10 +8,12 @@ namespace VOCALOIDParser
     public class AutomationTrack
     {
         public List<AutomationPoint> Points { get; private set; }
+        public bool Folded { get; set; }
 
         public AutomationTrack(JsonNode json)
         {
             Points = new List<AutomationPoint>();
+            Folded = json["isFolded"].GetValue<bool>();
 
             float pos, val;
             foreach (JsonNode evt in json["events"] as JsonArray)
@@ -20,6 +22,11 @@ namespace VOCALOIDParser
                 val = (evt["value"] as JsonValue).GetValue<float>();
                 Points.Add(new AutomationPoint(pos, val));
             }
+        }
+
+        public float Evaluate(float time)
+        {
+            throw new NotImplementedException();
         }
     }
 
