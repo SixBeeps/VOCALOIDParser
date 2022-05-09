@@ -12,8 +12,16 @@ namespace SixBeeps.VOCALOIDParser
         private static string workingDirectory = Path.Combine(Path.GetTempPath(), "VOCALOIDParser");
         public static Dictionary<string, string> SingerNames { get; private set; } = new Dictionary<string, string>();
 
-        private string projectDirectory;
+        private string? projectDirectory;
         public List<IVocaloidTrack> Tracks;
+
+        /// <summary>
+        /// Constructor for creating a new, blank Vocaloid project.
+        /// </summary>
+        public VocaloidProject()
+        {
+            Tracks = new List<IVocaloidTrack>();
+        }
 
         /// <summary>
         /// Creates an instance of <c>VocaloidProject</c> given a path to the .vpr file.

@@ -7,7 +7,7 @@ namespace UnitTesting
     [TestClass]
     public class UnitTest1
     {
-        const string BaseDir = @"D:\VOCALOID5\Documents\Testing";
+        const string BaseDir = @"C:\Users\brand\source\repos\VOCALOIDParser\DemoProjects";
         [TestMethod]
         public void LoadVprTest()
         {
@@ -46,6 +46,15 @@ namespace UnitTesting
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Wave.vpr");
             Assert.AreEqual(proj.Tracks.First().Events.Count, 2);
+        }
+
+        [TestMethod]
+        public void AutomationTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Automation.vpr");
+            var track = proj.Tracks.First();
+            if (track.VolumeTrack.Points.Count != 3) Assert.Fail($"Volume automation expected 3 points, got {track.VolumeTrack.Points.Count}");
+            if (track.PanningTrack.Points.Count != 2) Assert.Fail($"Panning automation expected 2 points, got {track.PanningTrack.Points.Count}");
         }
     }
 }

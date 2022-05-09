@@ -2,6 +2,7 @@
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 
 using System.Text.Json.Nodes;
+using VOCALOIDParser;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -9,17 +10,23 @@ namespace SixBeeps.VOCALOIDParser
     {
         public abstract string Name { get; }
         public abstract SortedList<int, IVocaloidEvent> Events { get; }
+        public abstract AutomationTrack VolumeTrack { get; }
+        public abstract AutomationTrack PanningTrack { get; }
     }
 
     public class VocalTrack : IVocaloidTrack
     {
         public string Name { get; }
         public SortedList<int, IVocaloidEvent> Events { get; }
+        public AutomationTrack VolumeTrack { get; }
+        public AutomationTrack PanningTrack { get; }
 
         internal VocalTrack(JsonNode json)
         {
             Name = json["name"].ToString();
             Events = new SortedList<int, IVocaloidEvent>();
+            VolumeTrack = new AutomationTrack(json["volume"]);
+            PanningTrack = new AutomationTrack(json["panpot"]);
 
             // Ignore empty tracks
             if (json["parts"] == null) return;
@@ -41,11 +48,15 @@ namespace SixBeeps.VOCALOIDParser
     {
         public string Name { get; }
         public SortedList<int, IVocaloidEvent> Events { get; }
+        public AutomationTrack VolumeTrack { get; }
+        public AutomationTrack PanningTrack { get; }
 
         public AudioTrack(JsonNode json)
         {
             Name = json["name"].ToString();
             Events = new SortedList<int, IVocaloidEvent>();
+            VolumeTrack = new AutomationTrack(json["volume"]);
+            PanningTrack = new AutomationTrack(json["panpot"]);
 
             // Ignore empty tracks
             if (json["parts"] == null) return;
