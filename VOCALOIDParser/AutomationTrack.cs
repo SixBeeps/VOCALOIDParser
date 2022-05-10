@@ -52,6 +52,19 @@ namespace SixBeeps.VOCALOIDParser
         }
     }
 
+    public class GlobalAutomationTrack : AutomationTrack
+    {
+        public bool UseGlobal { get; set; }
+        public float GlobalValue { get; set; }
+
+        public GlobalAutomationTrack(JsonNode json) : base(json)
+        {
+            var gComp = json["global"];
+            UseGlobal = gComp["isEnabled"].GetValue<bool>();
+            GlobalValue = gComp["value"].GetValue<float>();
+        }
+    }
+
     public record struct AutomationPoint
     {
         public float Position, Value;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SixBeeps.VOCALOIDParser
+﻿namespace SixBeeps.VOCALOIDParser
 {
     public class TimingHelpers
     {
@@ -18,6 +12,19 @@ namespace SixBeeps.VOCALOIDParser
         public static float TickToBeat(int tick)
         {
             return (float)tick / TICKS_PER_BEAT;
+        }
+    }
+
+    public class TimeRange : IVocaloidEvent
+    {
+        public int StartTime { get; }
+        public int Duration { get; }
+
+        public TimeRange(int start, int end)
+        {
+            if (end < start) throw new ArgumentOutOfRangeException(nameof(end), "Attempted to create negative length TimeRange");
+            StartTime = start;
+            Duration = end - start;
         }
     }
 }
