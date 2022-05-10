@@ -7,7 +7,9 @@ namespace UnitTesting
     [TestClass]
     public class UnitTest1
     {
+        // Fill this in with the location of the DemoProjects folder
         const string BaseDir = @"C:\Users\brand\source\repos\VOCALOIDParser\DemoProjects";
+
         [TestMethod]
         public void LoadVprTest()
         {
@@ -53,8 +55,14 @@ namespace UnitTesting
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Automation.vpr");
             var track = proj.Tracks.First();
+
+            // First test if automations loaded correctly
             if (track.VolumeTrack.Points.Count != 3) Assert.Fail($"Volume automation expected 3 points, got {track.VolumeTrack.Points.Count}");
             if (track.PanningTrack.Points.Count != 2) Assert.Fail($"Panning automation expected 2 points, got {track.PanningTrack.Points.Count}");
+
+            // Then test evaluation
+            float eval = track.VolumeTrack.Evaluate(TimingHelpers.BeatToTick(1));
+            Assert.IsTrue(eval < 0 && eval > -898, "Evaluate call failed, value was " + eval);
         }
     }
 }
