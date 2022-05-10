@@ -8,10 +8,29 @@ namespace SixBeeps.VOCALOIDParser
 {
     public class VocaloidTrack
     {
+        /// <summary>
+        /// Name of the track.
+        /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Whether or not this track is folded.
+        /// </summary>
         public bool Folded { get; set; }
+
+        /// <summary>
+        /// List of parts or audio snippets, sorted by the time in which they are played.
+        /// </summary>
         public SortedList<int, IVocaloidEvent> Events { get; }
+
+        /// <summary>
+        /// Volume track for this track.
+        /// </summary>
         public AutomationTrack VolumeTrack { get; }
+
+        /// <summary>
+        /// Panning track for this track.
+        /// </summary>
         public AutomationTrack PanningTrack { get; }
 
         public VocaloidTrack(JsonNode json)

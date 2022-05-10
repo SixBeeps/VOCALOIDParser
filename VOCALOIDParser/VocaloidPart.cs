@@ -7,13 +7,29 @@ namespace SixBeeps.VOCALOIDParser
 {
     public class VocalPart : IVocaloidEvent
     {
+        /// <summary>
+        /// Singer for this part as a unique VOCALOID ID.
+        /// </summary>
         public string SingerID { get; }
+
+        /// <summary>
+        /// Name of the singer for this part.
+        /// </summary>
         public string SingerName => VocaloidProject.SingerNames[SingerID];
 
+        /// <summary>
+        /// Start time of this part in ticks.
+        /// </summary>
         public int StartTime { get; }
 
+        /// <summary>
+        /// Length of this part in ticks.
+        /// </summary>
         public int Duration { get; }
 
+        /// <summary>
+        /// List of sang notes ("glyphs") in the part, sorted by the time in which they are sang.
+        /// </summary>
         public SortedList<int, VocalNote> Glyphs;
 
         internal VocalPart(JsonNode json)
@@ -38,6 +54,10 @@ namespace SixBeeps.VOCALOIDParser
             }
         }
 
+        /// <summary>
+        /// Extract human-readable lyrics for this part.
+        /// </summary>
+        /// <returns>List of lyrics as <c>Lyric</c> instances, sorted by the time in which they are sang.</returns>
         public SortedList<int, Lyric> GetLyrics()
         {
             SortedList<int, Lyric> lyrics = new();

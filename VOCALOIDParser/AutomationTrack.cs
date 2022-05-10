@@ -7,7 +7,14 @@ namespace SixBeeps.VOCALOIDParser
 {
     public class AutomationTrack
     {
+        /// <summary>
+        /// Automation points which make up the track, sorted by time in ticks.
+        /// </summary>
         public SortedList<float, AutomationPoint> Points { get; private set; }
+
+        /// <summary>
+        /// Whether or not this track is folded.
+        /// </summary>
         public bool Folded { get; set; }
 
         public AutomationTrack(JsonNode json)
@@ -54,7 +61,14 @@ namespace SixBeeps.VOCALOIDParser
 
     public class GlobalAutomationTrack : AutomationTrack
     {
+        /// <summary>
+        /// Whether or not the global value is used.
+        /// </summary>
         public bool UseGlobal { get; set; }
+
+        /// <summary>
+        /// Value used in the global context.
+        /// </summary>
         public float GlobalValue { get; set; }
 
         public GlobalAutomationTrack(JsonNode json) : base(json)
