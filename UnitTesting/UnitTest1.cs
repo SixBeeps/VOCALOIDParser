@@ -10,7 +10,7 @@ namespace UnitTesting
         // Fill this in with the location of the DemoProjects folder
         const string BaseDir = @"C:\Users\brand\source\repos\VOCALOIDParser\DemoProjects";
 
-        [TestMethod]
+        [TestMethod, TestCategory("Basic")]
         public void LoadVprTest()
         {
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
@@ -18,14 +18,14 @@ namespace UnitTesting
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Track/Part")]
         public void VocalTrackTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Vocal.vpr");
             Assert.IsTrue(proj.Tracks.First().Events.Count > 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Track/Part")]
         public void LyricBuildingTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Vocal.vpr");
@@ -34,7 +34,7 @@ namespace UnitTesting
             Assert.AreEqual(lyrCombined, "Ooh", "The built lyrics were: " + lyrCombined);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Track/Part")]
         public void PhonemeTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Demo.vpr");
@@ -43,14 +43,14 @@ namespace UnitTesting
             Assert.AreEqual(ph, "D i:", "The written phoneme was: " + ph);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Track/Part")]
         public void WaveTestTrack()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Wave.vpr");
             Assert.AreEqual(proj.Tracks.First().Events.Count, 2);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Automation")]
         public void AutomationTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Automation.vpr");
@@ -65,12 +65,19 @@ namespace UnitTesting
             Assert.IsTrue(eval < 0 && eval > -898, "Evaluate call failed, value was " + eval);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Automation")]
         public void GlobalAutomationTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Automation.vpr");
             var tempo = proj.Master.TempoTrack.GlobalValue;
             Assert.IsTrue(tempo == 12000, $"Global tempo expected 12000 hectobeats per minute, got {tempo}");
+        }
+
+        [TestMethod, TestCategory("Effects")]
+        public void EffectTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\ANewKindOfLove.vpr");
+            Assert.IsTrue(proj.Tracks.Count > 1);
         }
     }
 }

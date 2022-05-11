@@ -28,14 +28,6 @@ namespace SixBeeps.VOCALOIDParser
         public List<VocaloidTrack> Tracks;
 
         /// <summary>
-        /// Constructor for creating a new, blank Vocaloid project.
-        /// </summary>
-        public VocaloidProject()
-        {
-            Tracks = new List<VocaloidTrack>();
-        }
-
-        /// <summary>
         /// Creates an instance of <c>VocaloidProject</c> given a path to the .vpr file.
         /// </summary>
         /// <param name="path">Path to the Vocaloid project</param>
