@@ -12,8 +12,19 @@ namespace SixBeeps.VOCALOIDParser
         private static string workingDirectory = Path.Combine(Path.GetTempPath(), "VOCALOIDParser");
         private string? projectDirectory;
 
+        /// <summary>
+        /// Collection of singer IDs to names.
+        /// </summary>
         public static Dictionary<string, string> SingerNames { get; private set; } = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Information about master effects such as tempo.
+        /// </summary>
         public MasterTrack Master { get; private set; }
+
+        /// <summary>
+        /// List of tracks in the project.
+        /// </summary>
         public List<VocaloidTrack> Tracks;
 
         /// <summary>
