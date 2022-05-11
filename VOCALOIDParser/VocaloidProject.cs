@@ -10,9 +10,10 @@ namespace SixBeeps.VOCALOIDParser
     public class VocaloidProject
     {
         private static string workingDirectory = Path.Combine(Path.GetTempPath(), "VOCALOIDParser");
-        public static Dictionary<string, string> SingerNames { get; private set; } = new Dictionary<string, string>();
-
         private string? projectDirectory;
+
+        public static Dictionary<string, string> SingerNames { get; private set; } = new Dictionary<string, string>();
+        public MasterTrack Master { get; private set; }
         public List<VocaloidTrack> Tracks;
 
         /// <summary>
@@ -53,6 +54,9 @@ namespace SixBeeps.VOCALOIDParser
             {
                 SingerNames.TryAdd(info["compID"].ToString(), info["name"].ToString());
             }
+
+            // Initialize global automation
+            project.Master = new MasterTrack(docNode["masterTrack"]);
 
             // Create tracks
             project.Tracks = new List<VocaloidTrack>();

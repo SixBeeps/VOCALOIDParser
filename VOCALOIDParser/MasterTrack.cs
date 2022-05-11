@@ -5,7 +5,7 @@ namespace SixBeeps.VOCALOIDParser
     public class MasterTrack
     {
         /// <summary>
-        /// Audio sampling rate in hertz.
+        /// Audio sampling rate in hertz. Changing this is not recommended.
         /// </summary>
         public int SamplingRate { get; set; }
 

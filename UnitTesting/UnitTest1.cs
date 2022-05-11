@@ -64,5 +64,13 @@ namespace UnitTesting
             float eval = track.VolumeTrack.Evaluate(TimingHelpers.BeatToTick(1));
             Assert.IsTrue(eval < 0 && eval > -898, "Evaluate call failed, value was " + eval);
         }
+
+        [TestMethod]
+        public void GlobalAutomationTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\Automation.vpr");
+            var tempo = proj.Master.TempoTrack.GlobalValue;
+            Assert.IsTrue(tempo == 12000, $"Global tempo expected 12000 hectobeats per minute, got {tempo}");
+        }
     }
 }
