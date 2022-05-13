@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixBeeps.VOCALOIDParser;
+using SixBeeps.VOCALOIDParser.Effects;
 using System.Linq;
 
 namespace UnitTesting
