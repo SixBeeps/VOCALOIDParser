@@ -29,24 +29,24 @@ namespace SixBeeps.VOCALOIDParser
         public int Duration { get; }
 
         /// <summary>
-        /// List of sang notes ("glyphs") in the part, sorted by the time in which they are sang.
-        /// </summary>
-        public SortedList<int, VocalNote> Glyphs;
-
-        /// <summary>
         /// List of all affects on this part.
         /// </summary>
         public List<Effect> Effects;
 
+        /// <summary>
+        /// List of sang notes ("glyphs") in the part, sorted by the time in which they are sang.
+        /// </summary>
+        public SortedList<int, VocalNote> Glyphs;
+
         internal VocalPart(JsonNode json)
         {
             SingerID = json["voice"]["compID"].ToString();
-            Glyphs = new SortedList<int, VocalNote>();
-
             StartTime = json["pos"].GetValue<int>();
             Duration = json["duration"].GetValue<int>();
+            Effects = Effect.FromEffectList(json["audioEffects"].AsArray());
 
             // Extract glyphs
+            Glyphs = new SortedList<int, VocalNote>();
             int startTime, duration, midi;
             string glyph, phoneme;
             foreach (JsonNode note in json["notes"].AsArray())

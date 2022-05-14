@@ -24,7 +24,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
 
         public Effect(JsonNode json)
         {
-            paramList = json["Parameters"].AsArray();
+            paramList = json["parameters"].AsArray();
             Id = json["id"].GetValue<string>();
             Bypassed = json["isBypassed"].GetValue<bool>();
             Folded = json["isFolded"].GetValue<bool>();
