@@ -3,7 +3,6 @@
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 
 using System.Text.Json.Nodes;
-using SixBeeps.VOCALOIDParser.Effects;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -34,11 +33,6 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public AutomationTrack PanningTrack { get; }
 
-        /// <summary>
-        /// Effects used on this track.
-        /// </summary>
-        public List<Effect> Effects { get; }
-
         public VocaloidTrack(JsonNode json)
         {
             Name = json["name"].ToString();
@@ -46,7 +40,6 @@ namespace SixBeeps.VOCALOIDParser
             Events = new SortedList<int, IVocaloidEvent>();
             VolumeTrack = new AutomationTrack(json["volume"]);
             PanningTrack = new AutomationTrack(json["panpot"]);
-            Effects = Effect.FromEffectList(json["audioEffects"].AsArray());
         }
     }
 

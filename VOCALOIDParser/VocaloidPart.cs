@@ -2,6 +2,7 @@
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 
 using System.Text.Json.Nodes;
+using SixBeeps.VOCALOIDParser.Effects;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -31,6 +32,11 @@ namespace SixBeeps.VOCALOIDParser
         /// List of sang notes ("glyphs") in the part, sorted by the time in which they are sang.
         /// </summary>
         public SortedList<int, VocalNote> Glyphs;
+
+        /// <summary>
+        /// List of all affects on this part.
+        /// </summary>
+        public List<Effect> Effects;
 
         internal VocalPart(JsonNode json)
         {
