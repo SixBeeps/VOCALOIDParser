@@ -79,8 +79,12 @@ namespace UnitTesting
         {
             var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\ANewKindOfLove.vpr");
             var firstPart = (VocalPart)proj.Tracks.First().Events.First().Value;
-            var firstEffect = firstPart.Effects.First();
-            Assert.IsTrue(firstEffect is ChorusEffect, $"Expected first effect to be Chorus, got {firstEffect.GetType().Name}");
+            var firstEffect = firstPart.AudioEffects.First();
+            if (firstEffect is not ChorusEffect)
+                Assert.Fail($"Expected first audio effect to be Chorus, got {firstEffect.GetType().Name}");
+            firstEffect = firstPart.MidiEffects.First();
+            if (firstEffect is not SingingSkillEffect)
+                Assert.Fail($"Expected first MIDI effect to be SingingSkill, got {firstEffect.GetType().Name}");
         }
     }
 }

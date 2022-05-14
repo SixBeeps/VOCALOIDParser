@@ -79,6 +79,17 @@ namespace SixBeeps.VOCALOIDParser.Effects
                 case "3213F12A-421C-43a8-B844-7FE8C28A0D64":
                     return new TremoloEffect(json);
 
+                case "SingingSkill":
+                    return new SingingSkillEffect(json);
+                case "VoiceColor":
+                    return new VoiceColorEffect(json);
+                case "RobotVoice":
+                    return new RobotVoiceEffect(json);
+                case "DefaultLyric":
+                    return new DefaultLyricEffect(json);
+                case "Breath":
+                    return new BreathEffect(json);
+
                 default:
                     return new FallbackEffect(json);
             }

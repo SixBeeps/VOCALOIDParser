@@ -5,14 +5,14 @@ namespace SixBeeps.VOCALOIDParser.Effects
 {
     public class FallbackEffect : Effect
     {
-        public Dictionary<string, float> Parameters { get; set; }
+        public Dictionary<string, object> Parameters { get; set; }
 
         public FallbackEffect(JsonNode json) : base(json)
         {
             Parameters = new();
             foreach(JsonNode p in paramList)
             {
-                Parameters.Add(p["name"].GetValue<string>(), p["value"].GetValue<float>());
+                Parameters.Add(p["name"].GetValue<string>(), p["value"].GetValue<object>());
             }
         }
     }

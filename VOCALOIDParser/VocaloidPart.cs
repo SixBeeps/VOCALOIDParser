@@ -29,9 +29,9 @@ namespace SixBeeps.VOCALOIDParser
         public int Duration { get; }
 
         /// <summary>
-        /// List of all affects on this part.
+        /// List of all effects on this part.
         /// </summary>
-        public List<Effect> Effects;
+        public List<Effect> AudioEffects, MidiEffects;
 
         /// <summary>
         /// List of sang notes ("glyphs") in the part, sorted by the time in which they are sang.
@@ -44,7 +44,9 @@ namespace SixBeeps.VOCALOIDParser
             StartTime = json["pos"].GetValue<int>();
             Duration = json["duration"].GetValue<int>();
             if (json["audioEffects"] != null)
-                Effects = Effect.FromEffectList(json["audioEffects"].AsArray());
+                AudioEffects = Effect.FromEffectList(json["audioEffects"].AsArray());
+            if (json["midiEffects"] != null)
+                MidiEffects = Effect.FromEffectList(json["midiEffects"].AsArray());
 
             // Extract glyphs
             Glyphs = new SortedList<int, VocalNote>();
