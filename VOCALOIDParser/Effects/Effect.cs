@@ -52,6 +52,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
         /// <returns>A child class of <c>Effect</c> which represents the effect.</returns>
         public static Effect FromJsonEffect(JsonNode json)
         {
+            // Unfortunately, a dictionary can't be used here since types aren't compile-time constants and type conversion gets a little fuzzy.
             switch (json["id"].GetValue<string>())
             {
                 case "CDB4C488-BB24-45cb-8277-A245CB228BA8":
@@ -78,7 +79,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
                     return new TremoloEffect(json);
 
                 default:
-                    return null;
+                    return new FallbackEffect(json);
             }
         }
 
