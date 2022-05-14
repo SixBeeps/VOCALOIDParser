@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+using SixBeeps.VOCALOIDParser.Effects;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -29,6 +30,11 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public AutomationTrack VolumeTrack { get; set; }
 
+        /// <summary>
+        /// List of all audio effects on the master track.
+        /// </summary>
+        public List<Effect> AudioEffects { get; set; }
+
         public MasterTrack(JsonNode json)
         {
             SamplingRate = json["samplingRate"].GetValue<int>();
@@ -36,8 +42,12 @@ namespace SixBeeps.VOCALOIDParser
             var loop = json["loop"];
             LoopEnabled = loop["isEnabled"].GetValue<bool>();
             LoopRange = new TimeRange(loop["begin"].GetValue<int>(), loop["end"].GetValue<int>());
+
             TempoTrack = new GlobalAutomationTrack(json["tempo"]);
             VolumeTrack = new AutomationTrack(json["volume"]);
+
+            if (json["audioEffects"] != null)
+                AudioEffects = Effect.FromEffectList(json["audioEffects"].AsArray());
         }
     }
 }

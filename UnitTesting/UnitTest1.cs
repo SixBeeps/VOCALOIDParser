@@ -86,5 +86,14 @@ namespace UnitTesting
             if (firstEffect is not SingingSkillEffect)
                 Assert.Fail($"Expected first MIDI effect to be SingingSkill, got {firstEffect.GetType().Name}");
         }
+
+        [TestMethod, TestCategory("Effects")]
+        public void GlobalEffectTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BaseDir + @"\ANewKindOfLove.vpr");
+            var firstEffect = proj.Master.AudioEffects.First();
+            if (firstEffect is not ReverbEffect)
+                Assert.Fail($"Expected first audio effect to be Reverb, got {firstEffect.GetType().Name}");
+        }
     }
 }
