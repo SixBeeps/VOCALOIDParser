@@ -43,7 +43,8 @@ namespace SixBeeps.VOCALOIDParser
             SingerID = json["voice"]["compID"].ToString();
             StartTime = json["pos"].GetValue<int>();
             Duration = json["duration"].GetValue<int>();
-            Effects = Effect.FromEffectList(json["audioEffects"].AsArray());
+            if (json["audioEffects"] != null)
+                Effects = Effect.FromEffectList(json["audioEffects"].AsArray());
 
             // Extract glyphs
             Glyphs = new SortedList<int, VocalNote>();

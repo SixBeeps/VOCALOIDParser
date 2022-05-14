@@ -38,6 +38,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
         public static List<Effect> FromEffectList(JsonArray json)
         {
             List<Effect> ret = new();
+            if (json == null) return ret;
             foreach (JsonNode effect in json)
             {
                 ret.Add(FromJsonEffect(effect));
