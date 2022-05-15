@@ -51,6 +51,13 @@ namespace UnitTesting
             Assert.AreEqual(proj.Tracks.First().Events.Count, 2);
         }
 
+        [TestMethod, TestCategory("Track/Part")]
+        public void DVWMTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\ANewKindOfLove.vpr");
+            Assert.IsTrue(((VocalPart)proj.Tracks.First().Events.First().Value).Glyphs.ElementAt(2).Value.Attack.FriendlyNames.Contains("Up2"));
+        }
+
         [TestMethod, TestCategory("Automation")]
         public void AutomationTest()
         {

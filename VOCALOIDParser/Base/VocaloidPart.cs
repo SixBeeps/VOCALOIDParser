@@ -52,6 +52,8 @@ namespace SixBeeps.VOCALOIDParser
             Glyphs = new SortedList<int, VocalNote>();
             int startTime, duration, midi;
             string glyph, phoneme;
+            DVQM atk, rel;
+            JsonNode testDvqm;
             foreach (JsonNode note in json["notes"].AsArray())
             {
                 startTime = note["pos"].GetValue<int>();
@@ -59,7 +61,14 @@ namespace SixBeeps.VOCALOIDParser
                 midi = note["number"].GetValue<int>();
                 glyph = note["lyric"].ToString();
                 phoneme = note["phoneme"].ToString();
-                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration));
+                testDvqm = note["dvqm"];
+                if (testDvqm != null)
+                {
+                    atk = testDvqm["attack"] == null ? null : new(testDvqm["attack"]);
+                    rel = testDvqm["release"] == null ? null : new(testDvqm["release"]);
+                }
+                else atk = rel = null;
+                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration, atk, rel));
             }
         }
 
