@@ -23,9 +23,12 @@ namespace SixBeeps.VOCALOIDParser
         public MasterTrack Master { get; private set; }
 
         /// <summary>
-        /// List of tracks in the project.
+        /// List of all tracks in the project.
         /// </summary>
         public List<VocaloidTrack> Tracks;
+
+        public List<VocalTrack> VocalTracks => (from track in Tracks where track is VocalTrack select (VocalTrack)track).ToList();
+        public List<AudioTrack> AudioTracks => (from track in Tracks where track is AudioTrack select (AudioTrack)track).ToList();
 
         /// <summary>
         /// Creates an instance of <c>VocaloidProject</c> given a path to the .vpr file.

@@ -27,6 +27,13 @@ namespace UnitTesting
         }
 
         [TestMethod, TestCategory("Track/Part")]
+        public void WaveTestTrack()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Wave.vpr");
+            Assert.AreEqual(proj.Tracks.First().Events.Count, 2);
+        }
+        
+        [TestMethod, TestCategory("Track/Part")]
         public void LyricBuildingTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Vocal.vpr");
@@ -42,13 +49,6 @@ namespace UnitTesting
             var glyphs = ((VocalPart)proj.Tracks.First().Events.Values.First()).Glyphs;
             var ph = (from g in glyphs where g.Value.Glyph == "the" select g).First().Value.Phonemes;
             Assert.AreEqual(ph, "D i:", "The written phoneme was: " + ph);
-        }
-
-        [TestMethod, TestCategory("Track/Part")]
-        public void WaveTestTrack()
-        {
-            var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Wave.vpr");
-            Assert.AreEqual(proj.Tracks.First().Events.Count, 2);
         }
 
         [TestMethod, TestCategory("Track/Part")]

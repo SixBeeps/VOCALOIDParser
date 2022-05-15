@@ -45,6 +45,11 @@ namespace SixBeeps.VOCALOIDParser
 
     public class VocalTrack : VocaloidTrack
     {
+        /// <summary>
+        /// Vocal parts in this track.
+        /// </summary>
+        public List<VocalPart> Parts => (from part in Events select (VocalPart)part.Value).ToList();
+
         public VocalTrack(JsonNode json) : base(json)
         {
             // Ignore empty tracks
@@ -65,6 +70,11 @@ namespace SixBeeps.VOCALOIDParser
 
     public class AudioTrack : VocaloidTrack
     {
+        /// <summary>
+        /// Vocal parts in this track.
+        /// </summary>
+        public List<AudioEvent> AudioClips => (from part in Events select (AudioEvent)part.Value).ToList();
+
         public AudioTrack(JsonNode json) : base(json)
         {
             // Ignore empty tracks
