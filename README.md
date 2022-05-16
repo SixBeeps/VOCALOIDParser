@@ -16,3 +16,25 @@ VOCALOIDParser can read the contents of a .vpr file and provide a .NET-friendly 
 I will not implement exporting projects, though I understand why that sound counterintuitive. Many libraries for working with files allow not just reading files, but also writing to them. Don't get me wrong, I would love to incorporate exporting in this library. However, due to it being very easily abused, I must respect the proprietariness of the format and leave it out.
 
 A list of what needs to be implemented TBD, this project is still a work-in-progress.
+
+## Instalation and Usage
+Add the package to your project through NuGet. Currently, only .NET 6.0 and above is supported.
+Current version: `VOCALOIDParser.1.0.0-alpha`
+
+Example of usage:
+```csharp
+using System;
+using SixBeeps.VOCALOIDParser;
+
+public class Example {
+  public static void Main(string[] args) {
+    // Load the project
+    var project = VocaloidProject.CreateFromVpr("C:/path/to/projects/AwesomeSauce.vpr");
+
+    // Go through each track and output its name
+    foreach (var track in project.Tracks) {
+      Console.WriteLine(track.Name);
+    }
+  }
+}
+```

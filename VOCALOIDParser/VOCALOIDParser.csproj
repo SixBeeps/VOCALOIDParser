@@ -4,6 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<PackageId>VOCALOIDParser</PackageId>
+	<Version>1.0.0-alpha</Version>
+	<Authors>SixBeeps</Authors>
+	<PackageDescription>A .NET library for working with VOCALOID5 projects</PackageDescription>
   </PropertyGroup>
 
 </Project>
