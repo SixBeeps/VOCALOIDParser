@@ -5,7 +5,7 @@ A .NET library for working with VOCALOID5 projects
 
 There doesn't exist (to my knowledge) any libraries for working with Vocaloid projects, despite it being one of the largest vocal generation tools out there. As popular as it is, however, the software itself is made to only create and play vocals curated by a person. With a library that can work with its native format, more programatic things can be achieved. Personally, I would love to see a tool for exporting lyrics as subtitles, but that's not possible.
 
-At least, not with VOCALOIDParser.
+At least, not without VOCALOIDParser.
 
 With this library, anyone with a valid VOCALOID5 project can make their own programs using .vpr files. The possibilities are endless.
 
@@ -17,8 +17,8 @@ I will not implement exporting projects, though I understand why that sound coun
 
 A list of what needs to be implemented TBD, this project is still a work-in-progress.
 
-## Instalation and Usage
-Add the package to your project through NuGet. Currently, only .NET 6.0 and above is supported.
+## Installation and Usage
+Add the package to your project through NuGet See more information about adding VOCALOIDParser to your project on the [nuget.org page](https://www.nuget.org/packages/VOCALOIDParser/1.0.0-alpha). Currently, only .NET 6.0 and above is supported.
 Current version: `VOCALOIDParser.1.0.0-alpha`
 
 Example of usage:
