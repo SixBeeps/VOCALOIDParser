@@ -31,6 +31,11 @@ namespace SixBeeps.VOCALOIDParser
         public List<AudioTrack> AudioTracks => (from track in Tracks where track is AudioTrack select (AudioTrack)track).ToList();
 
         /// <summary>
+        /// Initial tempo of the project.
+        /// </summary>
+        public float BPM => (Master.TempoTrack.UseGlobal ? Master.TempoTrack.GlobalValue : Master.TempoTrack.Evaluate(0)) / 100f;
+
+        /// <summary>
         /// Creates an instance of <c>VocaloidProject</c> given a path to the .vpr file.
         /// </summary>
         /// <param name="path">Path to the Vocaloid project</param>
