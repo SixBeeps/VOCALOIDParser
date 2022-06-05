@@ -18,4 +18,25 @@
     <ProjectReference Include="..\VOCALOIDParser\VOCALOIDParser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DemoProjects\ANewKindOfLove.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DemoProjects\Automation.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DemoProjects\Blank.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DemoProjects\Demo.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DemoProjects\Vocal.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DemoProjects\Wave.vpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

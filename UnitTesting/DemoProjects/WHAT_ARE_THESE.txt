@@ -1,0 +1,6 @@
+﻿The files in this folder contain projects which test various features of the VOCALOID5 editor,
+which are to be used for unit testing.
+
+All of these are mostly empty, with the only exception being ANewKindOfLove.vpr, a VOCALOID
+version of A New Kind of Love by Frou Frou creationed by yours truly. You can listen to the
+original one here: https://www.youtube.com/watch?v=vWwIBemUwOI

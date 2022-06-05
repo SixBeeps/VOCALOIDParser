@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixBeeps.VOCALOIDParser;
 using SixBeeps.VOCALOIDParser.Effects;
+using System.IO;
 using System.Linq;
 
 namespace UnitTesting
@@ -9,7 +10,11 @@ namespace UnitTesting
     public class UnitTest1
     {
         // Fill this in with the location of the DemoProjects folder
-        const string BASE_DIR = @"C:\Users\brand\source\repos\VOCALOIDParser\DemoProjects";
+        //const string BASE_DIR = @"C:\Users\brand\source\repos\VOCALOIDParser\DemoProjects";
+        string BASE_DIR = Path.Join(
+            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+            "DemoProjects"
+        );
 
         [TestMethod, TestCategory("Basic")]
         public void LoadVprTest()
