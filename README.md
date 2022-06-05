@@ -1,5 +1,6 @@
 # VOCALOIDParser
 A .NET library for working with VOCALOID5 projects
+You can check the documentation >>> [here](https://vocaloidparserdocs.sixbeeps.repl.co/d3/dcc/md__r_e_a_d_m_e.html)
 
 ## Motivation
 
