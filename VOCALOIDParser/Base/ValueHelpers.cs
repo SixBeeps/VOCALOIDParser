@@ -28,6 +28,27 @@
         }
     }
 
+    public class NumberHelpers
+    {
+        /// <summary>
+        /// Linearly interpolate between two values
+        /// </summary>
+        /// <param name="left">The starting "base" value</param>
+        /// <param name="right">The final "target" value</param>
+        /// <param name="t">Range from 0.0 to 1.0 representing the percentage between the left and right values to interpolate.</param>
+        /// <param name="strict">If true, throws an error if t is not within 0.0 and 1.0</param>
+        /// <returns></returns>
+        public static float Lerp(float left, float right, float t, bool strict = false)
+        {
+            if (strict)
+            {
+                if (t < 0.0 || t > 1.0) throw new ArgumentOutOfRangeException($"Interpolation percentage must be between 0.0 and 1.0 when strict, got {t}");
+            }
+
+            return left + (right - left) * t;
+        }
+    }
+
     public class TimeRange : IVocaloidEvent
     {
         public int StartTime { get; }
