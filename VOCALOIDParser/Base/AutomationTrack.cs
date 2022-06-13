@@ -54,8 +54,7 @@ namespace SixBeeps.VOCALOIDParser
             // Otherwise, linearly interpolate between the two.
             AutomationPoint left = Points.Values[p - 1], right = Points.Values[p];
             float percent = (time - left.Position) / (right.Position - left.Position);
-            float del = (right.Value - left.Value) * percent;
-            return Points.Values[p - 1].Value + del;
+            return NumberHelpers.Lerp(left.Value, right.Value, percent);
         }
     }
 
