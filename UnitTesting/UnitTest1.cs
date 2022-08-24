@@ -19,9 +19,7 @@ namespace UnitTesting
         [TestMethod, TestCategory("Basic")]
         public void LoadVprTest()
         {
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Blank.vpr");
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
         }
 
         [TestMethod, TestCategory("Track/Part")]

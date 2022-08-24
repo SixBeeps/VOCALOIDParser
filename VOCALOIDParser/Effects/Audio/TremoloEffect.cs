@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8602 // Dereference of a possibly null reference.
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser.Effects
 {
@@ -41,4 +40,3 @@ namespace SixBeeps.VOCALOIDParser.Effects
         }
     }
 }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.

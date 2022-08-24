@@ -1,7 +1,4 @@
-﻿#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Text.Json.Nodes;
 using System.Runtime.InteropServices;
 
@@ -107,6 +104,3 @@ namespace SixBeeps.VOCALOIDParser
         }
     }
 }
-
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
