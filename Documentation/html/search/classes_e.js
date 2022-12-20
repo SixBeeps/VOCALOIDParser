@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['unittest1_0',['UnitTest1',['../d4/d0f/class_unit_testing_1_1_unit_test1.html',1,'UnitTesting']]]
+  ['timerange_0',['TimeRange',['../d8/d52/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_time_range.html',1,'SixBeeps::VOCALOIDParser']]],
+  ['timinghelpers_1',['TimingHelpers',['../de/def/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_timing_helpers.html',1,'SixBeeps::VOCALOIDParser']]],
+  ['tremoloeffect_2',['TremoloEffect',['../d8/da6/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_effects_1_1_tremolo_effect.html',1,'SixBeeps::VOCALOIDParser::Effects']]]
 ];

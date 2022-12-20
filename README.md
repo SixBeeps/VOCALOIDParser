@@ -20,8 +20,8 @@ I will not implement exporting projects, though I understand why that sound coun
 A list of what needs to be implemented TBD, this project is still a work-in-progress.
 
 ## Installation and Usage
-Add the package to your project through NuGet See more information about adding VOCALOIDParser to your project on the [nuget.org page](https://www.nuget.org/packages/VOCALOIDParser/1.0.0-alpha). Currently, only .NET 6.0 and above is supported.
-Current version: `VOCALOIDParser.1.0.1-alpha`
+Add the package to your project through NuGet See more information about adding VOCALOIDParser to your project on the [nuget.org page](https://www.nuget.org/packages/VOCALOIDParser/1.0.1). Currently, only .NET 6.0 and above is supported.
+Current version: `VOCALOIDParser.1.0.1`
 
 Example of usage:
 ```csharp

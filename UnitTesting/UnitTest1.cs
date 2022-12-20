@@ -77,6 +77,16 @@ namespace UnitTesting
         }
 
         [TestMethod, TestCategory("Automation")]
+        public void AutomationNoEventsTest()
+        {
+            var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @".\Automation.vpr");
+
+            // Test if tempo automation matches project tempo
+            float eval = proj.Master.TempoTrack.Evaluate(TimingHelpers.BeatToTick(2)) / 100;
+            Assert.IsTrue(eval == proj.BPM, $"Evaluated {eval}, real BPM {proj.BPM}");
+        }
+
+        [TestMethod, TestCategory("Automation")]
         public void GlobalAutomationTest()
         {
             var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Automation.vpr");

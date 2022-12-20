@@ -37,7 +37,8 @@ namespace SixBeeps.VOCALOIDParser
         public float Evaluate(int time)
         {
             // Fallback in case out of range
-            if (time <= 0) return Points.Values[0].Value;
+            if (Points.Values.Count == 0) throw new IndexOutOfRangeException("Automation has no points, cannot evaluate");
+            if (time <= 0) return Points.Values.First().Value;
 
             // Get right-hand automation point.
             int p;
@@ -47,10 +48,10 @@ namespace SixBeeps.VOCALOIDParser
             }
 
             // If there's no right-hand point, return constant.
-            if (p == Points.Count - 1) return Points.Values[p].Value;
+            if (p == Points.Count) return Points.Values[p - 1].Value;
 
             // Otherwise, linearly interpolate between the two.
-            AutomationPoint left = Points.Values[p - 1], right = Points.Values[p];
+            AutomationPoint right = right = Points.Values[p], left = Points.Values[p - 1];
             float percent = (time - left.Position) / (right.Position - left.Position);
             return NumberHelpers.Lerp(left.Value, right.Value, percent);
         }

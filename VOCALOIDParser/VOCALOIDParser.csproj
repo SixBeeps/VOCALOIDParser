@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<PackageId>VOCALOIDParser</PackageId>
-	<Version>1.0.1-alpha</Version>
+	<Version>1.0.1</Version>
 	<Authors>SixBeeps</Authors>
 	<Tags>Vocaloid;vpr</Tags>
 	<Description>A .NET library for working with VOCALOID5 projects</Description>
@@ -13,7 +13,7 @@
 	<PackageIcon>icon.png</PackageIcon>
 	<RepositoryUrl>https://github.com/SixBeeps/VOCALOIDParser</RepositoryUrl>
 	<PackageTags>Vocaloid;vpr</PackageTags>
-	<PackageReleaseNotes>Initial prerelease</PackageReleaseNotes>
+	<PackageReleaseNotes>Initial release</PackageReleaseNotes>
 	<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
 	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<IncludeSymbols>True</IncludeSymbols>
