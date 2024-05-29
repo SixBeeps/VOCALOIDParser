@@ -21,7 +21,10 @@ namespace SixBeeps.VOCALOIDParser.Effects
         /// </summary>
         public bool Folded { get; set; }
 
-        internal static readonly Dictionary<string, Func<JsonNode, Effect>> EffectCreators = new() {
+        /// <summary>
+        /// Pre-computed list of effect UUIDs and their respective class constructors.
+        /// </summary>
+        protected static readonly Dictionary<string, Func<JsonNode, Effect>> EffectCreators = new() {
             { "CDB4C488-BB24-45cb-8277-A245CB228BA8", (json) => new AutoPanEffect(json) },
             { "F36904B7-5032-4cbe-AA48-C95440732F9D", (json) => new ChorusEffect(json) },
             { "4D1F311D-DA90-459d-B581-003D003A1E5E", (json) => new CompressorEffect(json) },
