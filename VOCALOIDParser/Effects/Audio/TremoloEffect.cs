@@ -10,9 +10,14 @@ namespace SixBeeps.VOCALOIDParser.Effects
         public float LFOFrequency { get; set; }
 
         /// <summary>
-        /// TODO: Figure out what these values are
+        /// Amount of modulation applied to the amplitude.
         /// </summary>
-        public float AMDepth, PMDepth;
+        public float AMDepth;
+
+        /// <summary>
+        /// Amount of modulation applied to the pitch.
+        /// </summary>
+        public float PMDepth;
 
         /// <summary>
         /// Whether or not the tremolo is synced by tempo or seconds.
