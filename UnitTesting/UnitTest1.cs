@@ -140,7 +140,7 @@ namespace UnitTesting
             var singingTrack = new VocalTrack();
             var singingPart = new VocalPart();
             var dvqm = new DVQM();
-            var firstNote = new VocalNote("ah", "@", 64, 0, 100, dvqm, dvqm);
+            var firstNote = new VocalNote("ah", "@", 64, 64, 0, 100, dvqm, dvqm);
             singingPart.Glyphs.Add(0, firstNote);
             singingTrack.Events.Add(0, singingPart);
             proj.Tracks.Add(singingTrack);

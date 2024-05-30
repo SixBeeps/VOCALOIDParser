@@ -56,7 +56,7 @@ namespace SixBeeps.VOCALOIDParser
 
             // Extract glyphs
             Glyphs = new SortedList<int, VocalNote>();
-            int startTime, duration, midi;
+            int startTime, duration, midi, vel;
             string glyph, phoneme;
             DVQM atk, rel;
             JsonNode testDvqm;
@@ -65,6 +65,7 @@ namespace SixBeeps.VOCALOIDParser
                 startTime = note["pos"].GetValue<int>();
                 duration = note["duration"].GetValue<int>();
                 midi = note["number"].GetValue<int>();
+                vel = note["velocity"].GetValue<int>();
                 glyph = note["lyric"].ToString();
                 phoneme = note["phoneme"].ToString();
                 testDvqm = note["dvqm"];
@@ -74,7 +75,7 @@ namespace SixBeeps.VOCALOIDParser
                     rel = testDvqm["release"] == null ? null : new(testDvqm["release"]);
                 }
                 else atk = rel = null;
-                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration, atk, rel)); // TODO Add velocity
+                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, vel, startTime, duration, atk, rel)); // TODO Add velocity
             }
         }
 
@@ -109,6 +110,7 @@ namespace SixBeeps.VOCALOIDParser
                 jsonWriter.WriteNumber("pos", glyph.StartTime);
                 jsonWriter.WriteNumber("duration", glyph.Duration);
                 jsonWriter.WriteNumber("number", glyph.MIDINote);
+                jsonWriter.WriteNumber("velocity", glyph.Velocity);
                 jsonWriter.WriteString("lyric", glyph.Glyph);
                 jsonWriter.WriteString("phoneme", glyph.Phonemes);
                 jsonWriter.WriteStartObject("dqvm");

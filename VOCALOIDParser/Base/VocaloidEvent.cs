@@ -14,15 +14,17 @@ namespace SixBeeps.VOCALOIDParser
         public string Glyph;
         public string Phonemes;
         public int MIDINote;
+        public int Velocity;
         public int StartTime { get; set; }
         public int Duration { get; set; }
         public DVQM Attack, Release;
 
-        public VocalNote(string glyph, string phonemes, int midi, int startTime, int duration, DVQM atk, DVQM rel)
+        public VocalNote(string glyph, string phonemes, int midi, int vel, int startTime, int duration, DVQM atk, DVQM rel)
         {
             Glyph = glyph;
             Phonemes = phonemes;
             MIDINote = midi;
+            Velocity = vel;
             StartTime = startTime;
             Duration = duration;
             Attack = atk;

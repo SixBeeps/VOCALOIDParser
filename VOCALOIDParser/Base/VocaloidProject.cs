@@ -101,7 +101,7 @@ namespace SixBeeps.VOCALOIDParser
         public void SaveToVpr(string path, bool overwrite = true) {
             // Create project directory if it does not already exist
             if (projectDirectory == null) {
-                projectDirectory = Path.Join(workingDirectory, "Constructed"); // TODO Make this a UUID or something
+                projectDirectory = Path.Join(workingDirectory, "Constructed_" + Guid.NewGuid().ToString());
                 Directory.CreateDirectory(projectDirectory);
                 Directory.CreateDirectory(Path.Combine(projectDirectory, "Project"));
             }
