@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser
@@ -14,6 +15,11 @@ namespace SixBeeps.VOCALOIDParser
         /// Whether or not this track is folded.
         /// </summary>
         public bool Folded { get; set; }
+
+        public AutomationTrack() {
+            Points = new SortedList<float, AutomationPoint>();
+            Folded = false;
+        }
 
         public AutomationTrack(JsonNode json)
         {
@@ -55,6 +61,21 @@ namespace SixBeeps.VOCALOIDParser
             float percent = (time - left.Position) / (right.Position - left.Position);
             return NumberHelpers.Lerp(left.Value, right.Value, percent);
         }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Base properties
+            jsonWriter.WriteBoolean("isFolded", Folded);
+
+            // Automation points
+            jsonWriter.WriteStartArray("events");
+            foreach (AutomationPoint point in Points.Values) {
+                jsonWriter.WriteStartObject();
+                jsonWriter.WriteNumber("pos", point.Value);
+                jsonWriter.WriteNumber("value", point.Value);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+        }
     }
 
     public class GlobalAutomationTrack : AutomationTrack
@@ -69,11 +90,26 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public float GlobalValue { get; set; }
 
+        public GlobalAutomationTrack() : base() {
+            UseGlobal = false;
+        }
+
         public GlobalAutomationTrack(JsonNode json) : base(json)
         {
             var gComp = json["global"];
             UseGlobal = gComp["isEnabled"].GetValue<bool>();
             GlobalValue = gComp["value"].GetValue<float>();
+        }
+
+        new internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Global object
+            jsonWriter.WriteStartObject("global");
+            jsonWriter.WriteBoolean("isEnabled", UseGlobal);
+            jsonWriter.WriteNumber("value", GlobalValue);
+            jsonWriter.WriteEndObject();
+
+            // Automation data
+            base.WriteJSON(jsonWriter);
         }
     }
 

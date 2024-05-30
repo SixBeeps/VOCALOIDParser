@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser.Effects
 {
@@ -92,6 +93,18 @@ namespace SixBeeps.VOCALOIDParser.Effects
             }
 
             throw new ArgumentException($"Failed to find parameter name \"{name}\" in effect {Id}");
+        }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Base properties
+            jsonWriter.WriteString("id", Id);
+            jsonWriter.WriteBoolean("isBypassed", Bypassed);
+            jsonWriter.WriteBoolean("isFolded", Folded);
+
+            // Parameter list
+            jsonWriter.WriteStartArray("parameters");
+            paramList.WriteTo(jsonWriter);
+            jsonWriter.WriteEndArray();
         }
     }
 }

@@ -115,5 +115,22 @@ namespace UnitTesting
             if (firstEffect is not ReverbEffect)
                 Assert.Fail($"Expected first audio effect to be Reverb, got {firstEffect.GetType().Name}");
         }
+
+        [TestMethod, TestCategory("Save")]
+        public void SaveExistingTest() {
+            var proj = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Blank.vpr");
+            proj.SaveToVpr(BASE_DIR + @"\Saved.vpr");
+            if (!File.Exists(BASE_DIR + @"\Saved.vpr"))
+                Assert.Fail(BASE_DIR + @"\Saved.vpr was not created");
+            // TODO Compare contents
+            File.Delete(BASE_DIR + @"\Saved.vpr");
+        }
+
+        [TestMethod, TestCategory("Save")]
+        public void SaveNewTest() {
+            var proj = new VocaloidProject();
+            proj.SaveToVpr(BASE_DIR + @"\Created.vpr");
+            File.Delete(BASE_DIR + @"\Created.vpr");
+        }
     }
 }

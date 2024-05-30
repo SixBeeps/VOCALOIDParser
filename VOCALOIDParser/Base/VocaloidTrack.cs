@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -36,6 +37,10 @@ namespace SixBeeps.VOCALOIDParser
             Events = new SortedList<int, IVocaloidEvent>();
             VolumeTrack = new AutomationTrack(json["volume"]);
             PanningTrack = new AutomationTrack(json["panpot"]);
+        }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Do nothing.
         }
     }
 

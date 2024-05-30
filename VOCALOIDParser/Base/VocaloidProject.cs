@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text.Json.Nodes;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -32,13 +33,17 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public float BPM => (Master.TempoTrack.UseGlobal ? Master.TempoTrack.GlobalValue : Master.TempoTrack.Evaluate(0)) / 100f;
 
+        public VocaloidProject() {
+            Master = new MasterTrack();
+            Tracks = new List<VocaloidTrack>();
+        }
+
         /// <summary>
         /// Creates an instance of <c>VocaloidProject</c> given a path to the .vpr file.
         /// </summary>
         /// <param name="path">Path to the Vocaloid project</param>
         /// <returns>The newly-created project instance</returns>
         /// <exception cref="NotImplementedException">Thrown when a nonbinary track type is found</exception>
-
         public static VocaloidProject CreateFromVpr(string path)
         {
             var project = new VocaloidProject
@@ -85,6 +90,59 @@ namespace SixBeeps.VOCALOIDParser
             }
 
             return project;
+        }
+
+        /// <summary>
+        /// Saves the project to a .vpr file
+        /// </summary>
+        /// <param name="path">The path to save the project to</param>
+        /// <param name="overwrite">Overwrites the file if it already exists</param>
+        /// <exception cref="DirectoryNotFoundException">Thrown when a pre-existing project directory doesn't exist</exception>
+        public void SaveToVpr(string path, bool overwrite = true) {
+            // Create project directory if it does not already exist
+            if (projectDirectory == null) {
+                projectDirectory = Path.Join(workingDirectory, "Constructed"); // TODO Make this a UUID or something
+                Directory.CreateDirectory(projectDirectory);
+                Directory.CreateDirectory(Path.Combine(projectDirectory, "Project"));
+            }
+
+            // Open sequence.json for writing
+            if (!Directory.Exists(projectDirectory)) throw new DirectoryNotFoundException("Project directory deleted before attempting to save");
+            FileStream baseStream = new(Path.Combine(projectDirectory, "Project", "sequence.json"), FileMode.Create);
+            Utf8JsonWriter jsonWriter = new(baseStream);
+            jsonWriter.WriteStartObject();
+
+            // Write voices
+            jsonWriter.WriteStartArray("voices");
+            foreach (var singer in SingerNames) {
+                jsonWriter.WriteStartObject();
+                jsonWriter.WriteString("compID", singer.Key);
+                jsonWriter.WriteString("name", singer.Value);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+            jsonWriter.Flush();
+
+            // Write master automation
+            jsonWriter.WriteStartObject("masterTrack");
+            Master.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
+
+            // Write tracks
+            jsonWriter.WriteStartArray("tracks");
+            foreach (VocaloidTrack track in Tracks) {
+                jsonWriter.WriteStartObject();
+                track.WriteJSON(jsonWriter);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+            jsonWriter.Flush();
+
+            // Clean up and package into .vpr file
+            jsonWriter.Dispose();
+            baseStream.Close();
+            if (overwrite && File.Exists(path)) File.Delete(path);
+            ZipFile.CreateFromDirectory(projectDirectory, path);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using SixBeeps.VOCALOIDParser.Effects;
 
 namespace SixBeeps.VOCALOIDParser
@@ -35,6 +36,14 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public List<Effect> AudioEffects { get; set; }
 
+        public MasterTrack() {
+            SamplingRate = 44100;
+            LoopEnabled = false;
+            TempoTrack = new GlobalAutomationTrack();
+            VolumeTrack = new AutomationTrack();
+            AudioEffects = new List<Effect>();
+        }
+
         public MasterTrack(JsonNode json)
         {
             SamplingRate = json["samplingRate"].GetValue<int>();
@@ -48,6 +57,38 @@ namespace SixBeeps.VOCALOIDParser
 
             if (json["audioEffects"] != null)
                 AudioEffects = Effect.FromEffectList(json["audioEffects"].AsArray());
+            else
+                AudioEffects = new List<Effect>();
+        }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Base properties
+            jsonWriter.WriteNumber("samplingRate", SamplingRate);
+
+            // Loop
+            jsonWriter.WriteStartObject("loop");
+            jsonWriter.WriteBoolean("isEnabled", LoopEnabled);
+            if (LoopRange != null) {
+                jsonWriter.WriteNumber("begin", LoopRange.StartTime);
+                jsonWriter.WriteNumber("end", LoopRange.EndTime);
+            }
+            jsonWriter.WriteEndObject();
+
+            // Automation tracks
+            jsonWriter.WriteStartObject("tempo");
+            TempoTrack.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
+
+            jsonWriter.WriteStartObject("volume");
+            VolumeTrack.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
+
+            // Audio effects
+            jsonWriter.WriteStartArray("audioEffects");
+            foreach (Effect effect in AudioEffects) {
+                effect.WriteJSON(jsonWriter);
+            }
+            jsonWriter.WriteEndArray();
         }
     }
 }

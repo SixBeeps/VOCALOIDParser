@@ -52,13 +52,14 @@
     public class TimeRange : IVocaloidEvent
     {
         public int StartTime { get; }
-        public int Duration { get; }
+        public int EndTime { get; }
+        public int Duration { get => EndTime - StartTime; }
 
         public TimeRange(int start, int end)
         {
             if (end < start) throw new ArgumentOutOfRangeException(nameof(end), "Attempted to create negative length TimeRange");
             StartTime = start;
-            Duration = end - start;
+            EndTime = end;
         }
     }
 }
