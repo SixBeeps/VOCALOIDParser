@@ -22,6 +22,11 @@ namespace SixBeeps.VOCALOIDParser
         public int SingerLanguage { get; set; }
 
         /// <summary>
+        /// Name of the singing style used for this part.
+        /// </summary>
+        public string StyleName { get; set; }
+
+        /// <summary>
         /// Start time of this part in ticks.
         /// </summary>
         public int StartTime { get; set; }
@@ -45,6 +50,7 @@ namespace SixBeeps.VOCALOIDParser
             // Grab the first known singer if it exists
             SingerID = VocaloidProject.SingerNames.Keys.FirstOrDefault("");
             SingerLanguage = 1;
+            StyleName = "No Effect";
             AudioEffects = new();
             MidiEffects = new();
             Glyphs = new();
@@ -54,6 +60,7 @@ namespace SixBeeps.VOCALOIDParser
         {
             SingerID = json["voice"]["compID"].ToString();
             SingerLanguage = json["voice"]["langID"].GetValue<int>();
+            StyleName = json["styleName"].ToString();
             StartTime = json["pos"].GetValue<int>();
             Duration = json["duration"].GetValue<int>();
             if (json["audioEffects"] != null)
@@ -90,6 +97,7 @@ namespace SixBeeps.VOCALOIDParser
             // Base properties
             jsonWriter.WriteNumber("pos", StartTime);
             jsonWriter.WriteNumber("duration", Duration);
+            jsonWriter.WriteString("styleName", StyleName);
             jsonWriter.WriteStartObject("voice");
             jsonWriter.WriteString("compID", SingerID);
             jsonWriter.WriteNumber("langID", SingerLanguage);

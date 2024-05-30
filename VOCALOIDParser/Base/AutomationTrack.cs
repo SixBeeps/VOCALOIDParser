@@ -12,6 +12,11 @@ namespace SixBeeps.VOCALOIDParser
         public SortedList<float, AutomationPoint> Points { get; private set; }
 
         /// <summary>
+        /// Height of the automation track.
+        /// </summary>
+        public float Height { get; set; }
+
+        /// <summary>
         /// Whether or not this track is folded.
         /// </summary>
         public bool Folded { get; set; }
@@ -19,12 +24,14 @@ namespace SixBeeps.VOCALOIDParser
         public AutomationTrack() {
             Points = new SortedList<float, AutomationPoint>();
             Folded = false;
+            Height = 40;
         }
 
         public AutomationTrack(JsonNode json)
         {
             Points = new SortedList<float, AutomationPoint>();
             Folded = json["isFolded"].GetValue<bool>();
+            Height = json["height"].GetValue<float>();
 
             float pos, val;
             foreach (JsonNode evt in json["events"].AsArray())
@@ -65,6 +72,7 @@ namespace SixBeeps.VOCALOIDParser
         internal void WriteJSON(Utf8JsonWriter jsonWriter) {
             // Base properties
             jsonWriter.WriteBoolean("isFolded", Folded);
+            jsonWriter.WriteNumber("height", Height);
 
             // Automation points
             jsonWriter.WriteStartArray("events");

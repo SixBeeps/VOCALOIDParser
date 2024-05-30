@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Big Wave files
 *.wav
+
+# My Stuff
+Sandbox/

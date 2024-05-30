@@ -27,6 +27,11 @@ namespace SixBeeps.VOCALOIDParser
         public GlobalAutomationTrack TempoTrack { get; set; }
 
         /// <summary>
+        /// Time signature track for the whole song.
+        /// </summary>
+        public TimeSignatureTrack TimeSignatureTrack { get; set; }
+
+        /// <summary>
         /// Volume track for the whole song.
         /// </summary>
         public AutomationTrack VolumeTrack { get; set; }
@@ -40,6 +45,7 @@ namespace SixBeeps.VOCALOIDParser
             SamplingRate = 44100;
             LoopEnabled = false;
             TempoTrack = new GlobalAutomationTrack();
+            TimeSignatureTrack = new TimeSignatureTrack();
             VolumeTrack = new AutomationTrack();
             AudioEffects = new List<Effect>();
         }
@@ -54,6 +60,7 @@ namespace SixBeeps.VOCALOIDParser
 
             TempoTrack = new GlobalAutomationTrack(json["tempo"]);
             VolumeTrack = new AutomationTrack(json["volume"]);
+            TimeSignatureTrack = new TimeSignatureTrack(json["timeSig"]);
 
             if (json["audioEffects"] != null)
                 AudioEffects = Effect.FromEffectList(json["audioEffects"].AsArray());
@@ -81,7 +88,9 @@ namespace SixBeeps.VOCALOIDParser
             jsonWriter.WriteStartObject("tempo");
             TempoTrack.WriteJSON(jsonWriter);
             jsonWriter.WriteEndObject();
-
+            jsonWriter.WriteStartObject("timeSig");
+            TimeSignatureTrack.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
             jsonWriter.WriteStartObject("volume");
             VolumeTrack.WriteJSON(jsonWriter);
             jsonWriter.WriteEndObject();

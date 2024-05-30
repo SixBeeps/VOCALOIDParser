@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOCALOIDParser", "VOCALOIDParser\VOCALOIDParser.csproj", "{D27583EC-3E7D-40F6-ACFF-E4CD33A6190A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{AB11F719-5CF5-4495-B622-1F63A592BC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{AB11F719-5CF5-4495-B622-1F63A592BC13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{0267D50E-022B-42F9-8C7F-ED9D64AB2A2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{AB11F719-5CF5-4495-B622-1F63A592BC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB11F719-5CF5-4495-B622-1F63A592BC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB11F719-5CF5-4495-B622-1F63A592BC13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0267D50E-022B-42F9-8C7F-ED9D64AB2A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0267D50E-022B-42F9-8C7F-ED9D64AB2A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0267D50E-022B-42F9-8C7F-ED9D64AB2A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0267D50E-022B-42F9-8C7F-ED9D64AB2A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
