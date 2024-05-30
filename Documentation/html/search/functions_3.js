@@ -5,6 +5,6 @@ var searchData=
   ['delaychannel_2',['DelayChannel',['../d9/d62/struct_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_effects_1_1_delay_channel.html#a0ff22227ae5a0b5349deb5ac22759417',1,'SixBeeps::VOCALOIDParser::Effects::DelayChannel']]],
   ['delayeffect_3',['DelayEffect',['../de/d42/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_effects_1_1_delay_effect.html#a6d17dbf6ef6f2a80abd8f71ac5d2a8e6',1,'SixBeeps::VOCALOIDParser::Effects::DelayEffect']]],
   ['distortioneffect_4',['DistortionEffect',['../dc/d68/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_effects_1_1_distortion_effect.html#a86be5b7605c1eec507d997f844a8b2b5',1,'SixBeeps::VOCALOIDParser::Effects::DistortionEffect']]],
-  ['dvqm_5',['DVQM',['../db/dd5/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_d_v_q_m.html#a729bc085ebe06f4a52894e72a33746c2',1,'SixBeeps::VOCALOIDParser::DVQM']]],
+  ['dvqm_5',['DVQM',['../db/dd5/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_d_v_q_m.html#ab9840018a4883d1b47c45b75f078c0ce',1,'SixBeeps.VOCALOIDParser.DVQM.DVQM()'],['../db/dd5/class_six_beeps_1_1_v_o_c_a_l_o_i_d_parser_1_1_d_v_q_m.html#a729bc085ebe06f4a52894e72a33746c2',1,'SixBeeps.VOCALOIDParser.DVQM.DVQM(JsonNode json)']]],
   ['dvwmtest_6',['DVWMTest',['../d4/d0f/class_unit_testing_1_1_unit_test1.html#acf7dec5609fc0071efadf2158ba99775',1,'UnitTesting::UnitTest1']]]
 ];
