@@ -12,8 +12,8 @@ At least, not without VOCALOIDParser.
 With this library, anyone with a valid VOCALOID5 project can make their own programs using .vpr files. The possibilities are endless.
 
 ## Installation and Usage
-Add the package to your project through NuGet See more information about adding VOCALOIDParser to your project on the [nuget.org page](https://www.nuget.org/packages/VOCALOIDParser/1.0.2). Currently, only .NET 6.0 and above is supported.
-Current version: `VOCALOIDParser.1.0.2`
+Add the package to your project through NuGet See more information about adding VOCALOIDParser to your project on the [nuget.org page](https://www.nuget.org/packages/VOCALOIDParser/1.0.2). It is built using .NET 8.0.
+Current version: `VOCALOIDParser.1.1.0`
 
 Example of usage:
 ```csharp
