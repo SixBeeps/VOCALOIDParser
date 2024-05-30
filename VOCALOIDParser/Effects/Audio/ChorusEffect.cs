@@ -5,7 +5,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
     public class ChorusEffect : Effect
     {
         /// <summary>
-        /// Frequency of the chorus LFO.
+        /// Frequency of the chorus LFO when synced by seconds.
         /// </summary>
         public float LFOFrequency { get; set; }
 
@@ -40,7 +40,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
         public float TempoSync { get; set; }
 
         /// <summary>
-        /// TODO: Figure out what this value means
+        /// Frequency of the chorus LFO when tempo-synced.
         /// </summary>
         public float SyncNote { get; set; }
 

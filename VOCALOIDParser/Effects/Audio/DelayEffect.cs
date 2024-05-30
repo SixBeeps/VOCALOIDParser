@@ -57,7 +57,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
     public struct DelayChannel
     {
         /// <summary>
-        /// Time to delay this channel's signal
+        /// Time to delay this channel's signal when synced by seconds.
         /// </summary>
         public float Delay { get; set; }
 
@@ -67,7 +67,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
         public float Feedback { get; set; }
 
         /// <summary>
-        /// TODO: Still don't know what this does.
+        /// Time to delay this channel's signal when tempo-synced.
         /// </summary>
         public float SyncNote { get; set; }
 

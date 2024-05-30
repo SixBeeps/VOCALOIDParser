@@ -5,7 +5,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
     public class AutoPanEffect : Effect
     {
         /// <summary>
-        /// Frequency of the autopan.
+        /// Frequency of the autopan when synced by seconds.
         /// </summary>
         public float LFOFrequency { get; set; }
 
@@ -20,7 +20,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
         public float TempoSync { get; set; }
 
         /// <summary>
-        /// TODO: Figure out what this value means
+        /// Frequency of the autopan when tempo-synced.
         /// </summary>
         public float SyncNote { get; set; }
 

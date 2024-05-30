@@ -122,7 +122,6 @@ namespace UnitTesting
             proj.SaveToVpr(BASE_DIR + @"\Saved.vpr");
             if (!File.Exists(BASE_DIR + @"\Saved.vpr"))
                 Assert.Fail(BASE_DIR + @"\Saved.vpr was not created");
-            // TODO Compare contents
             File.Delete(BASE_DIR + @"\Saved.vpr");
         }
 
