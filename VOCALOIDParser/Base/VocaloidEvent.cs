@@ -5,8 +5,8 @@ namespace SixBeeps.VOCALOIDParser
 {
     public interface IVocaloidEvent
     {
-        int StartTime { get; }
-        int Duration { get; }
+        int StartTime { get; set; }
+        int Duration { get; set; }
     }
 
     public record struct VocalNote : IVocaloidEvent
@@ -64,8 +64,11 @@ namespace SixBeeps.VOCALOIDParser
     public record struct AudioEvent : IVocaloidEvent
     {
         public string WaveFile;
-        public int StartTime { get; }
-        public int Duration => (int)(RegionEnd - RegionStart);
+        public int StartTime { get; set; }
+        public int Duration {
+            get => (int)(RegionEnd - RegionStart);
+            set => RegionEnd = RegionStart + value;
+        }
         public float RegionStart { get; set; }
         public float RegionEnd { get; set; }
 

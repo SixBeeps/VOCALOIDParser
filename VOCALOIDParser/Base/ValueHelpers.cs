@@ -51,9 +51,12 @@
 
     public class TimeRange : IVocaloidEvent
     {
-        public int StartTime { get; }
-        public int EndTime { get; }
-        public int Duration { get => EndTime - StartTime; }
+        public int StartTime { get; set; }
+        public int EndTime { get; set; }
+        public int Duration {
+            get => EndTime - StartTime;
+            set => EndTime = StartTime + value;
+        }
 
         public TimeRange(int start, int end)
         {

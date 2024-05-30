@@ -9,7 +9,7 @@ namespace SixBeeps.VOCALOIDParser
         /// <summary>
         /// Singer for this part as a unique VOCALOID ID.
         /// </summary>
-        public string SingerID { get; }
+        public string SingerID { get; set; }
 
         /// <summary>
         /// Name of the singer for this part.
@@ -17,14 +17,19 @@ namespace SixBeeps.VOCALOIDParser
         public string SingerName => VocaloidProject.SingerNames[SingerID];
 
         /// <summary>
+        /// Language of the singer as a unique ID.
+        /// </summary>
+        public int SingerLanguage { get; set; }
+
+        /// <summary>
         /// Start time of this part in ticks.
         /// </summary>
-        public int StartTime { get; }
+        public int StartTime { get; set; }
 
         /// <summary>
         /// Length of this part in ticks.
         /// </summary>
-        public int Duration { get; }
+        public int Duration { get; set; }
 
         /// <summary>
         /// List of all effects on this part.
@@ -39,6 +44,7 @@ namespace SixBeeps.VOCALOIDParser
         public VocalPart() {
             // Grab the first known singer if it exists
             SingerID = VocaloidProject.SingerNames.Keys.FirstOrDefault("");
+            SingerLanguage = 1;
             AudioEffects = new();
             MidiEffects = new();
             Glyphs = new();
@@ -47,6 +53,7 @@ namespace SixBeeps.VOCALOIDParser
         internal VocalPart(JsonNode json)
         {
             SingerID = json["voice"]["compID"].ToString();
+            SingerLanguage = json["voice"]["langID"].GetValue<int>();
             StartTime = json["pos"].GetValue<int>();
             Duration = json["duration"].GetValue<int>();
             if (json["audioEffects"] != null)
@@ -75,7 +82,7 @@ namespace SixBeeps.VOCALOIDParser
                     rel = testDvqm["release"] == null ? null : new(testDvqm["release"]);
                 }
                 else atk = rel = null;
-                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, vel, startTime, duration, atk, rel)); // TODO Add velocity
+                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, vel, startTime, duration, atk, rel));
             }
         }
 
@@ -84,7 +91,8 @@ namespace SixBeeps.VOCALOIDParser
             jsonWriter.WriteNumber("pos", StartTime);
             jsonWriter.WriteNumber("duration", Duration);
             jsonWriter.WriteStartObject("voice");
-            jsonWriter.WriteString("compID", SingerID); // TODO Add langID
+            jsonWriter.WriteString("compID", SingerID);
+            jsonWriter.WriteNumber("langID", SingerLanguage);
             jsonWriter.WriteEndObject();
             
             // Effects
