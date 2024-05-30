@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.IO;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser
@@ -8,7 +9,7 @@ namespace SixBeeps.VOCALOIDParser
         /// <summary>
         /// Name of the track.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Whether or not this track is folded.
@@ -18,17 +19,25 @@ namespace SixBeeps.VOCALOIDParser
         /// <summary>
         /// List of parts or audio snippets, sorted by the time in which they are played.
         /// </summary>
-        public SortedList<int, IVocaloidEvent> Events { get; }
+        public SortedList<int, IVocaloidEvent> Events { get; set; }
 
         /// <summary>
         /// Volume track for this track.
         /// </summary>
-        public AutomationTrack VolumeTrack { get; }
+        public AutomationTrack VolumeTrack { get; set; }
 
         /// <summary>
         /// Panning track for this track.
         /// </summary>
-        public AutomationTrack PanningTrack { get; }
+        public AutomationTrack PanningTrack { get; set; }
+
+        internal int trackType;
+
+        public VocaloidTrack() {
+            Events = new();
+            VolumeTrack  = new();
+            PanningTrack = new();
+        }
 
         public VocaloidTrack(JsonNode json)
         {
@@ -40,7 +49,18 @@ namespace SixBeeps.VOCALOIDParser
         }
 
         internal void WriteJSON(Utf8JsonWriter jsonWriter) {
-            // Do nothing.
+            // Base properties
+            jsonWriter.WriteString("name", Name);
+            jsonWriter.WriteNumber("type", trackType);
+            jsonWriter.WriteBoolean("isFolded", Folded);
+
+            // Automation tracks
+            jsonWriter.WriteStartObject("volume");
+            VolumeTrack.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
+            jsonWriter.WriteStartObject("panpot");
+            PanningTrack.WriteJSON(jsonWriter);
+            jsonWriter.WriteEndObject();
         }
     }
 
@@ -50,6 +70,11 @@ namespace SixBeeps.VOCALOIDParser
         /// Vocal parts in this track.
         /// </summary>
         public List<VocalPart> Parts => (from part in Events select (VocalPart)part.Value).ToList();
+
+        public VocalTrack() : base() {
+            Name = "New Vocal Track";
+            trackType = 0;
+        }
 
         public VocalTrack(JsonNode json) : base(json)
         {
@@ -67,6 +92,17 @@ namespace SixBeeps.VOCALOIDParser
                 Events.Add(startTime, new VocalPart(part));
             }
         }
+
+        new internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            base.WriteJSON(jsonWriter);
+            jsonWriter.WriteStartArray("parts");
+            foreach (VocalPart part in Parts) {
+                jsonWriter.WriteStartObject();
+                part.WriteJSON(jsonWriter);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+        }
     }
 
     public class AudioTrack : VocaloidTrack
@@ -75,6 +111,11 @@ namespace SixBeeps.VOCALOIDParser
         /// Vocal parts in this track.
         /// </summary>
         public List<AudioEvent> AudioClips => (from part in Events select (AudioEvent)part.Value).ToList();
+
+        public AudioTrack() {
+            Name = "New Audio Track";
+            trackType = 1;
+        }
 
         public AudioTrack(JsonNode json) : base(json)
         {
@@ -93,6 +134,24 @@ namespace SixBeeps.VOCALOIDParser
                 rEnd = clip["region"]["end"].GetValue<float>();
                 Events.Add(startTime, new AudioEvent(wav, startTime, rStart, rEnd));
             }
+        }
+
+        new internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            base.WriteJSON(jsonWriter);
+            jsonWriter.WriteStartArray("parts");
+            foreach (AudioEvent clip in AudioClips) {
+                jsonWriter.WriteStartObject();
+                jsonWriter.WriteStartObject("wav");
+                jsonWriter.WriteString("name", clip.WaveFile);
+                jsonWriter.WriteEndObject();
+                jsonWriter.WriteNumber("pos", clip.StartTime);
+                jsonWriter.WriteStartObject("region");
+                jsonWriter.WriteNumber("begin", clip.RegionStart);
+                jsonWriter.WriteNumber("end", clip.RegionEnd);
+                jsonWriter.WriteEndObject();
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
         }
     }
 }

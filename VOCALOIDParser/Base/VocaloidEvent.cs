@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.Json;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -13,8 +14,8 @@ namespace SixBeeps.VOCALOIDParser
         public string Glyph;
         public string Phonemes;
         public int MIDINote;
-        public int StartTime { get; }
-        public int Duration { get; }
+        public int StartTime { get; set; }
+        public int Duration { get; set; }
         public DVQM Attack, Release;
 
         public VocalNote(string glyph, string phonemes, int midi, int startTime, int duration, DVQM atk, DVQM rel)
@@ -33,8 +34,8 @@ namespace SixBeeps.VOCALOIDParser
     {
         public string Word;
         public string Phonemes;
-        public int StartTime { get; }
-        public int Duration { get; }
+        public int StartTime { get; set; }
+        public int Duration { get; set; }
 
         public Lyric(List<VocalNote> notes)
         {
@@ -63,8 +64,8 @@ namespace SixBeeps.VOCALOIDParser
         public string WaveFile;
         public int StartTime { get; }
         public int Duration => (int)(RegionEnd - RegionStart);
-        public float RegionStart { get; }
-        public float RegionEnd { get; }
+        public float RegionStart { get; set; }
+        public float RegionEnd { get; set; }
 
         public AudioEvent(string wavFile, int startTime, float regionStart, float regionEnd)
         {

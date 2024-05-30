@@ -132,5 +132,27 @@ namespace UnitTesting
             proj.SaveToVpr(BASE_DIR + @"\Created.vpr");
             File.Delete(BASE_DIR + @"\Created.vpr");
         }
+
+        [TestMethod, TestCategory("Save")]
+        public void SaveNewComplexTest() {
+            // Create a project and save it
+            var proj = new VocaloidProject();
+            var singingTrack = new VocalTrack();
+            var singingPart = new VocalPart();
+            var dvqm = new DVQM();
+            var firstNote = new VocalNote("ah", "@", 64, 0, 100, dvqm, dvqm);
+            singingPart.Glyphs.Add(0, firstNote);
+            singingTrack.Events.Add(0, singingPart);
+            proj.Tracks.Add(singingTrack);
+            proj.SaveToVpr(BASE_DIR + @"\Created.vpr");
+
+            // Load our project using CreateFromVpr
+            var proj2 = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Created.vpr");
+            if ((proj2.Tracks.First().Events.First().Value as VocalPart).Glyphs.First().Value.MIDINote != 64)
+                Assert.Fail("Comparison between saved and loaded projects failed");
+
+            // Clean up and pass
+            File.Delete(BASE_DIR + @"\Created.vpr");
+        }
     }
 }

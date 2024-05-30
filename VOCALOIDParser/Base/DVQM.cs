@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SixBeeps.VOCALOIDParser
 {
@@ -29,6 +30,14 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public float TopFactor { get; set; }
 
+        /// <summary>
+        /// Constructor for a dummy DVQM, it's not recommended to use this.
+        /// </summary>
+        public DVQM() {
+            Id = "Dummy";
+            FriendlyNames = ["Dummy DVQM"];
+        }
+
         public DVQM(JsonNode json)
         {
             Id = json["compID"].GetValue<string>();
@@ -36,6 +45,21 @@ namespace SixBeeps.VOCALOIDParser
             Protected = json["isProtected"].GetValue<bool>();
             Speed = json["speed"].GetValue<int>();
             TopFactor = json["topFactor"].GetValue<float>();
+        }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Base properties
+            jsonWriter.WriteString("compId", Id);
+            jsonWriter.WriteBoolean("isProtected", Protected);
+            jsonWriter.WriteNumber("speed", Speed);
+            jsonWriter.WriteNumber("topFactor", TopFactor);
+
+            // Friendly names
+            jsonWriter.WriteStartArray("levelNames");
+            foreach (var name in FriendlyNames) {
+                jsonWriter.WriteStringValue(name);
+            }
+            jsonWriter.WriteEndArray();
         }
     }
 }

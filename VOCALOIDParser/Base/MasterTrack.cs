@@ -71,6 +71,9 @@ namespace SixBeeps.VOCALOIDParser
             if (LoopRange != null) {
                 jsonWriter.WriteNumber("begin", LoopRange.StartTime);
                 jsonWriter.WriteNumber("end", LoopRange.EndTime);
+            } else {
+                jsonWriter.WriteNumber("begin", 0);
+                jsonWriter.WriteNumber("end", 0);
             }
             jsonWriter.WriteEndObject();
 

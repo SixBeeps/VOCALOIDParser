@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using SixBeeps.VOCALOIDParser.Effects;
 
 namespace SixBeeps.VOCALOIDParser
@@ -35,6 +36,14 @@ namespace SixBeeps.VOCALOIDParser
         /// </summary>
         public SortedList<int, VocalNote> Glyphs;
 
+        public VocalPart() {
+            // Grab the first known singer if it exists
+            SingerID = VocaloidProject.SingerNames.Keys.FirstOrDefault("");
+            AudioEffects = new();
+            MidiEffects = new();
+            Glyphs = new();
+        }
+
         internal VocalPart(JsonNode json)
         {
             SingerID = json["voice"]["compID"].ToString();
@@ -65,8 +74,58 @@ namespace SixBeeps.VOCALOIDParser
                     rel = testDvqm["release"] == null ? null : new(testDvqm["release"]);
                 }
                 else atk = rel = null;
-                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration, atk, rel));
+                Glyphs.Add(startTime, new VocalNote(glyph, phoneme, midi, startTime, duration, atk, rel)); // TODO Add velocity
             }
+        }
+
+        internal void WriteJSON(Utf8JsonWriter jsonWriter) {
+            // Base properties
+            jsonWriter.WriteNumber("pos", StartTime);
+            jsonWriter.WriteNumber("duration", Duration);
+            jsonWriter.WriteStartObject("voice");
+            jsonWriter.WriteString("compID", SingerID); // TODO Add langID
+            jsonWriter.WriteEndObject();
+            
+            // Effects
+            jsonWriter.WriteStartArray("audioEffects");
+            foreach(var efc in AudioEffects) {
+                jsonWriter.WriteStartObject();
+                efc.WriteJSON(jsonWriter);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+            jsonWriter.WriteStartArray("midiEffects");
+            foreach (var efc in MidiEffects) {
+                jsonWriter.WriteStartObject();
+                efc.WriteJSON(jsonWriter);
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
+
+            // Events
+            jsonWriter.WriteStartArray("notes");
+            foreach (var glyph in Glyphs.Values) {
+                jsonWriter.WriteStartObject();
+                jsonWriter.WriteNumber("pos", glyph.StartTime);
+                jsonWriter.WriteNumber("duration", glyph.Duration);
+                jsonWriter.WriteNumber("number", glyph.MIDINote);
+                jsonWriter.WriteString("lyric", glyph.Glyph);
+                jsonWriter.WriteString("phoneme", glyph.Phonemes);
+                jsonWriter.WriteStartObject("dqvm");
+                if (glyph.Attack != null) {
+                    jsonWriter.WriteStartObject("attack");
+                    glyph.Attack.WriteJSON(jsonWriter);
+                    jsonWriter.WriteEndObject();
+                }
+                if (glyph.Release != null) {
+                    jsonWriter.WriteStartObject("release");
+                    glyph.Release.WriteJSON(jsonWriter);
+                    jsonWriter.WriteEndObject();
+                }
+                jsonWriter.WriteEndObject();
+                jsonWriter.WriteEndObject();
+            }
+            jsonWriter.WriteEndArray();
         }
 
         /// <summary>

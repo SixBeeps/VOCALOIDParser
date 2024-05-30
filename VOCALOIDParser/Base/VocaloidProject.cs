@@ -132,10 +132,15 @@ namespace SixBeeps.VOCALOIDParser
             jsonWriter.WriteStartArray("tracks");
             foreach (VocaloidTrack track in Tracks) {
                 jsonWriter.WriteStartObject();
-                track.WriteJSON(jsonWriter);
+                if (track is VocalTrack) {
+                    ((VocalTrack)track).WriteJSON(jsonWriter);
+                } else if (track is AudioTrack) {
+                    ((AudioTrack)track).WriteJSON(jsonWriter);
+                }
                 jsonWriter.WriteEndObject();
             }
             jsonWriter.WriteEndArray();
+            jsonWriter.WriteEndObject();
             jsonWriter.Flush();
 
             // Clean up and package into .vpr file
