@@ -55,6 +55,20 @@ namespace SixBeeps.VOCALOIDParser
             }
         }
 
+        public Lyric(List<AIVocalNote> notes) {
+            if (notes.Count == 0) throw new ArgumentOutOfRangeException(nameof(notes), "Empty notes list given");
+
+            Word = string.Empty;
+            Phonemes = string.Empty;
+            StartTime = notes.First().StartTime;
+            Duration = 0;
+            foreach (AIVocalNote note in notes) {
+                Word += note.Glyph.Replace("-", "");
+                Phonemes += note.Phonemes;
+                Duration += note.Duration;
+            }
+        }
+
         public override string ToString()
         {
             return Word;
@@ -78,6 +92,24 @@ namespace SixBeeps.VOCALOIDParser
             StartTime = startTime;
             RegionStart = regionStart;
             RegionEnd = regionEnd;
+        }
+    }
+
+    public record struct AIVocalNote {
+        public string Glyph;
+        public string Phonemes;
+        public int MIDINote;
+        public int Velocity;
+        public int StartTime { get; set; }
+        public int Duration { get; set; }
+
+        public AIVocalNote(string glyph, string phonemes, int note, int vel, int startTime, int duration) {
+            Glyph = glyph;
+            Phonemes = phonemes;
+            MIDINote = note;
+            Velocity = vel;
+            StartTime = startTime;
+            Duration = duration;
         }
     }
 }

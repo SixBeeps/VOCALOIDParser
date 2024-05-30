@@ -85,7 +85,7 @@ namespace SixBeeps.VOCALOIDParser
                         project.Tracks.Add(new AudioTrack(track));
                         break;
                     case 2:
-                        Console.WriteLine("Vocaloid:AI track detected, skipping...");
+                        project.Tracks.Add(new AIVocalTrack(track));
                         break;
                     default:
                         throw new NotImplementedException($"No track implementation for VOCALOID track type {trackType}");

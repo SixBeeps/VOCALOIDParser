@@ -46,7 +46,7 @@ namespace SixBeeps.VOCALOIDParser.Effects
 
         public Effect(JsonNode json)
         {
-            paramList = json["parameters"].AsArray();
+            paramList = json["parameters"]?.AsArray() ?? [];
             Id = json["id"].GetValue<string>();
             Bypassed = json["isBypassed"].GetValue<bool>();
             Folded = json["isFolded"].GetValue<bool>();
@@ -102,9 +102,10 @@ namespace SixBeeps.VOCALOIDParser.Effects
             jsonWriter.WriteBoolean("isFolded", Folded);
 
             // Parameter list
-            jsonWriter.WriteStartArray("parameters");
-            paramList.WriteTo(jsonWriter);
-            jsonWriter.WriteEndArray();
+            if (paramList.Count > 0) {
+                jsonWriter.WritePropertyName("parameters");
+                paramList.WriteTo(jsonWriter);
+            }
         }
     }
 }

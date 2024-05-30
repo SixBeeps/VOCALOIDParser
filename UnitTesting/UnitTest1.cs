@@ -147,7 +147,7 @@ namespace UnitTesting
 
             // Load our project using CreateFromVpr
             var proj2 = VocaloidProject.CreateFromVpr(BASE_DIR + @"\Created.vpr");
-            if ((proj2.Tracks.First().Events.First().Value as VocalPart).Glyphs.First().Value.MIDINote != 64)
+            if ((proj2.Tracks.First().Events.First().Value as VocalPart).Glyphs.First().Value.Glyph != "ah")
                 Assert.Fail("Comparison between saved and loaded projects failed");
 
             // Clean up and pass

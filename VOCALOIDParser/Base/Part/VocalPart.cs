@@ -104,20 +104,24 @@ namespace SixBeeps.VOCALOIDParser
             jsonWriter.WriteEndObject();
             
             // Effects
-            jsonWriter.WriteStartArray("audioEffects");
-            foreach(var efc in AudioEffects) {
-                jsonWriter.WriteStartObject();
-                efc.WriteJSON(jsonWriter);
-                jsonWriter.WriteEndObject();
+            if (AudioEffects != null) {
+                jsonWriter.WriteStartArray("audioEffects");
+                foreach(var efc in AudioEffects) {
+                    jsonWriter.WriteStartObject();
+                    efc.WriteJSON(jsonWriter);
+                    jsonWriter.WriteEndObject();
+                }
+                jsonWriter.WriteEndArray();
             }
-            jsonWriter.WriteEndArray();
-            jsonWriter.WriteStartArray("midiEffects");
-            foreach (var efc in MidiEffects) {
-                jsonWriter.WriteStartObject();
-                efc.WriteJSON(jsonWriter);
-                jsonWriter.WriteEndObject();
+            if (MidiEffects != null) {
+                jsonWriter.WriteStartArray("midiEffects");
+                foreach (var efc in MidiEffects) {
+                    jsonWriter.WriteStartObject();
+                    efc.WriteJSON(jsonWriter);
+                    jsonWriter.WriteEndObject();
+                }
+                jsonWriter.WriteEndArray();
             }
-            jsonWriter.WriteEndArray();
 
             // Events
             jsonWriter.WriteStartArray("notes");
