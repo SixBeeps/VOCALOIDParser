@@ -71,8 +71,12 @@ namespace SixBeeps.VOCALOIDParser
             // Extract glyphs
             Glyphs = new SortedList<int, AIVocalNote>();
             if (json["notes"] == null) return;
-            int startTime, duration, midi, vel;
+            int startTime, duration, midi, vel, langId;
             string glyph, phoneme;
+            VocalNoteExpression exp;
+            AIVocalNoteExpression aiExp;
+            NoteSingingSkill skill;
+            NoteVibrato vib;
             foreach (JsonNode note in json["notes"].AsArray())
             {
                 startTime = note["pos"].GetValue<int>();
@@ -81,7 +85,12 @@ namespace SixBeeps.VOCALOIDParser
                 vel = note["velocity"].GetValue<int>();
                 glyph = note["lyric"].ToString();
                 phoneme = note["phoneme"].ToString();
-                Glyphs.Add(startTime, new AIVocalNote(glyph, phoneme, midi, vel, startTime, duration));
+                langId = note["langID"].GetValue<int>();
+                exp = new(note["exp"]);
+                aiExp = new(note["aiExp"]);
+                skill = new(note["singingSkill"]);
+                vib = new(note["vibrato"]);
+                Glyphs.Add(startTime, new AIVocalNote(glyph, phoneme, langId, midi, vel, startTime, duration, exp, aiExp, skill, vib));
             }
         }
 
@@ -121,12 +130,12 @@ namespace SixBeeps.VOCALOIDParser
             jsonWriter.WriteStartArray("notes");
             foreach (var glyph in Glyphs.Values) {
                 jsonWriter.WriteStartObject();
+                jsonWriter.WriteString("lyric", glyph.Glyph);
+                jsonWriter.WriteString("phoneme", glyph.Phonemes);
                 jsonWriter.WriteNumber("pos", glyph.StartTime);
                 jsonWriter.WriteNumber("duration", glyph.Duration);
                 jsonWriter.WriteNumber("number", glyph.MIDINote);
                 jsonWriter.WriteNumber("velocity", glyph.Velocity);
-                jsonWriter.WriteString("lyric", glyph.Glyph);
-                jsonWriter.WriteString("phoneme", glyph.Phonemes);
                 jsonWriter.WriteEndObject();
             }
             jsonWriter.WriteEndArray();

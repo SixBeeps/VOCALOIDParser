@@ -95,21 +95,31 @@ namespace SixBeeps.VOCALOIDParser
         }
     }
 
-    public record struct AIVocalNote {
+    public record struct AIVocalNote : IVocaloidEvent {
         public string Glyph;
         public string Phonemes;
+        public int LanguageID;
         public int MIDINote;
         public int Velocity;
         public int StartTime { get; set; }
         public int Duration { get; set; }
+        public VocalNoteExpression MainExpression;
+        public AIVocalNoteExpression AIExpression;
+        public NoteSingingSkill SingingSkill;
+        public NoteVibrato Vibrato;
 
-        public AIVocalNote(string glyph, string phonemes, int note, int vel, int startTime, int duration) {
+        public AIVocalNote(string glyph, string phonemes, int langId, int note, int velocity, int startTime, int duration, VocalNoteExpression mainExpression, AIVocalNoteExpression aIExpression, NoteSingingSkill singingSkill, NoteVibrato vibrato) {
             Glyph = glyph;
             Phonemes = phonemes;
+            LanguageID = langId;
             MIDINote = note;
-            Velocity = vel;
+            Velocity = velocity;
             StartTime = startTime;
             Duration = duration;
+            MainExpression = mainExpression;
+            AIExpression = aIExpression;
+            SingingSkill = singingSkill;
+            Vibrato = vibrato;
         }
     }
 }
